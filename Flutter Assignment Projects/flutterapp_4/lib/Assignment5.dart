@@ -8,6 +8,7 @@ class Assignment5 extends StatefulWidget {
 
 class _Assignment5State extends State<Assignment5> {
   bool _like1 = false;
+  bool _save1 = false;
   bool _like2 = false;
   bool _like3 = false;
   bool _like4 = false;
@@ -197,7 +198,9 @@ class _Assignment5State extends State<Assignment5> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        _like1 = !_like1;
+                        setState(() {
+                          _like1 = !_like1;
+                        });
                       },
                       icon: Icon(
                         _like1
@@ -222,9 +225,15 @@ class _Assignment5State extends State<Assignment5> {
                       width: 200,
                     ),
                     IconButton(
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.bookmark_outline_outlined,
+                      onPressed: () {
+                        setState(() {
+                          _save1 = !_save1;
+                        });
+                      },
+                      icon: Icon(
+                        _save1
+                            ? Icons.bookmark_rounded
+                            : Icons.bookmark_outline_outlined,
                       ),
                     ),
                   ],
@@ -247,7 +256,9 @@ class _Assignment5State extends State<Assignment5> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        _like2 = !_like2;
+                        setState(() {
+                          _like2 = !_like2;
+                        });
                       },
                       icon: Icon(
                         _like2
@@ -297,7 +308,9 @@ class _Assignment5State extends State<Assignment5> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        _like3 = !_like3;
+                        setState(() {
+                          _like3 = !_like3;
+                        });
                       },
                       icon: Icon(
                         _like3
@@ -347,7 +360,9 @@ class _Assignment5State extends State<Assignment5> {
                   children: [
                     IconButton(
                       onPressed: () {
-                        _like4 = !_like4;
+                        setState(() {
+                          _like4 = !_like4;
+                        });
                       },
                       icon: Icon(
                         _like4
