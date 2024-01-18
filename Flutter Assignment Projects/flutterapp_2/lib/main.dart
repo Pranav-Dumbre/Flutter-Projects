@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutterapp2/Assignment2.dart';
+import 'package:flutterapp2/Assignment3.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,7 +11,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: Assignment2(),
+      home: Assignment3(),
     );
   }
 }
