@@ -16,7 +16,6 @@ class Netflix extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: SizedBox(
-          height: double.infinity,
           child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
