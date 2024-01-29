@@ -1,5 +1,8 @@
+//import 'package:column/columndemo.dart';
+//import 'package:column/flag.dart';
+//import 'package:column/rowdemo.dart';
 import 'package:flutter/material.dart';
-import 'demo.dart';
+import 'P1Tesla.dart';
 
 void main() {
   runApp(const MainApp());
@@ -11,8 +14,8 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      title: "Color Box",
-      home: Demo(),
+      debugShowCheckedModeBanner: false,
+      home: ThomePage(),
     );
   }
 }
