@@ -250,3 +250,31 @@
 //     return isQuestionScreen();
 //   }
 // }
+
+// ElevatedButton(
+//     style: ElevatedButton.styleFrom(
+//        primary: Colors.redAccent, //background color of button
+//        side: BorderSide(width:3, color:Colors.brown), //border width and color
+//        elevation: 3, //elevation of button
+//        shape: RoundedRectangleBorder( //to set border radius to button
+//                 borderRaius: BorderRadius.circular(30)
+//             ),
+//         padding: EdgeInsets.all(20) //content padding inside button
+//    )
+// )
+
+  // MaterialStateProperty<Color?> checkAnswer(int answerIndex) {
+  //   if (selectedAnswerIndex == answerIndex) {
+  //     if (answerIndex == allQuestions[questionIndex].answerIndex) {
+  //       return const MaterialStatePropertyAll(Colors.green);
+  //     } else if (selectedAnswerIndex !=
+  //         allQuestions[questionIndex].answerIndex) {
+  //       return const MaterialStatePropertyAll(Colors.red);
+  //     }
+  //   }
+  //   if (selectedAnswerIndex != -1 &&
+  //       answerIndex == allQuestions[questionIndex].answerIndex) {
+  //     return const MaterialStatePropertyAll(Color.fromARGB(255, 66, 237, 40));
+  //   }
+  //   return const MaterialStatePropertyAll(null);
+  // }

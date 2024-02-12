@@ -20,62 +20,86 @@ class _QuizAppState extends State {
   int selectedAnswerIndex = -1;
   int score = 0;
 
-  MaterialStateProperty<Color?> checkAnswer(int answerIndex) {
+  // MaterialStateProperty<Color?> checkAnswer(int answerIndex) {
+  //   if (selectedAnswerIndex == answerIndex) {
+  //     if (answerIndex == allQuestions[questionIndex].answerIndex) {
+  //       return const MaterialStatePropertyAll(Colors.green);
+  //     } else if (selectedAnswerIndex !=
+  //         allQuestions[questionIndex].answerIndex) {
+  //       return const MaterialStatePropertyAll(Colors.red);
+  //     }
+  //   }
+  //   if (selectedAnswerIndex != -1 &&
+  //       answerIndex == allQuestions[questionIndex].answerIndex) {
+  //     return const MaterialStatePropertyAll(Colors.green);
+  //   }
+  //   return const MaterialStatePropertyAll(null);
+  //}
+  Color? checkAnswer(int answerIndex) {
     if (selectedAnswerIndex == answerIndex) {
       if (answerIndex == allQuestions[questionIndex].answerIndex) {
-        return const MaterialStatePropertyAll(Colors.green);
+        return Colors.green;
       } else if (selectedAnswerIndex !=
           allQuestions[questionIndex].answerIndex) {
-        return const MaterialStatePropertyAll(
-            Colors.red);
+        return Colors.red;
       }
     }
     if (selectedAnswerIndex != -1 &&
         answerIndex == allQuestions[questionIndex].answerIndex) {
-      return const MaterialStatePropertyAll(Color.fromARGB(255, 66, 237, 40));
+      return Colors.green;
     }
-    return const MaterialStatePropertyAll(null);
+    return Colors.blueAccent;
   }
 
   void validateCurrentScreen() {
     if (selectedAnswerIndex == -1) {
       return;
-    } else {
-      questionIndex++;
-      selectedAnswerIndex = -1;
     }
+    // else {
+    //   questionIndex++;
+    //   selectedAnswerIndex = -1;
+    // }
     if (questionIndex == allQuestions.length - 1) {
       questionScreen = false;
     }
     if (selectedAnswerIndex == allQuestions[questionIndex].answerIndex) {
       score++;
     }
+    questionIndex++;
+    selectedAnswerIndex = -1;
+    //setState(() {});
   }
 
   List allQuestions = [
     const SingleQuestionModel(
-      question: "Who is the founder of Microsoft ?",
-      options: ["Steve Jobs", "Jeff Bezos", "Bill Gates", "Elon Musk"],
+      question: "Flutter framework is based on which language ?",
+      options: ["Java", "Swift", "Dart", "Python"],
       answerIndex: 2,
     ),
     const SingleQuestionModel(
-      question: "Who is the founder of Apple ?",
-      options: ["Steve Jobs", "Jeff Bezos", "Bill Gates", "Elon Musk"],
+      question:
+          "Which widget in Flutter is used to create a clickable button ?",
+      options: ["ElevatedButton", "Text", "Row", "Container"],
       answerIndex: 0,
     ),
     const SingleQuestionModel(
-      question: "Who is the founder of Amazon ?",
-      options: ["Steve Jobs", "Jeff Bezos", "Bill Gates", "Elon Musk"],
-      answerIndex: 1,
+      question: "Which widget is used create Scrollable list in Flutter ?",
+      options: ["ListView", "Column", "GridView", "SizedBox"],
+      answerIndex: 0,
     ),
     const SingleQuestionModel(
-      question: "Who is the founder of Tesla ?",
-      options: ["Steve Jobs", "Jeff Bezos", "Bill Gates", "Elon Musk"],
+      question: "What is the purpose of setState() in Flutter?",
+      options: [
+        "Define widget ayout",
+        "Handle user input",
+        "Manage animations",
+        "to call build() after updating"
+      ],
       answerIndex: 3,
     ),
     const SingleQuestionModel(
-      question: "Who is the founder of Google ?",
-      options: ["Steve Jobs", "Jeff Bezos", "Larry Page", "Elon Musk"],
+      question: "Who maintains the Flutter framework ?",
+      options: ["Meta", "Apple", "Google", "Microsoft"],
       answerIndex: 2,
     ),
   ];
@@ -92,6 +116,11 @@ class _QuizAppState extends State {
               fontWeight: FontWeight.w700,
             ),
           ),
+          shape: const ContinuousRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
@@ -99,7 +128,7 @@ class _QuizAppState extends State {
               validateCurrentScreen();
             });
           },
-          child: const Icon(Icons.forward_10_rounded),
+          child: const Icon(Icons.arrow_forward),
         ),
         body: Column(
           children: [
@@ -130,12 +159,12 @@ class _QuizAppState extends State {
             ),
             SizedBox(
               width: 350,
-              height: 50,
+              height: 60,
               child: Text(
                 allQuestions[questionIndex].question,
                 style: const TextStyle(
                   fontSize: 23,
-                  fontWeight: FontWeight.normal,
+                  fontWeight: FontWeight.w700,
                 ),
               ),
             ),
@@ -143,8 +172,8 @@ class _QuizAppState extends State {
               height: 30,
             ),
             SizedBox(
-              width: 400,
-              height: 50,
+              width: 350,
+              height: 60,
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedAnswerIndex == -1) {
@@ -153,13 +182,15 @@ class _QuizAppState extends State {
                     });
                   }
                 },
-                style: ButtonStyle(
+                style: ElevatedButton.styleFrom(
                   backgroundColor: checkAnswer(0),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
                 ),
                 child: Text(
                   "A.${allQuestions[questionIndex].options[0]}",
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 23,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -169,8 +200,8 @@ class _QuizAppState extends State {
               height: 30,
             ),
             SizedBox(
-              width: 400,
-              height: 50,
+              width: 350,
+              height: 60,
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedAnswerIndex == -1) {
@@ -179,13 +210,15 @@ class _QuizAppState extends State {
                     });
                   }
                 },
-                style: ButtonStyle(
+                style: ElevatedButton.styleFrom(
                   backgroundColor: checkAnswer(1),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
                 ),
                 child: Text(
                   "B.${allQuestions[questionIndex].options[1]}",
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 23,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -195,8 +228,8 @@ class _QuizAppState extends State {
               height: 30,
             ),
             SizedBox(
-              width: 400,
-              height: 50,
+              width: 350,
+              height: 60,
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedAnswerIndex == -1) {
@@ -205,13 +238,15 @@ class _QuizAppState extends State {
                     });
                   }
                 },
-                style: ButtonStyle(
+                style: ElevatedButton.styleFrom(
                   backgroundColor: checkAnswer(2),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
                 ),
                 child: Text(
                   "C.${allQuestions[questionIndex].options[2]}",
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 23,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -221,8 +256,8 @@ class _QuizAppState extends State {
               height: 30,
             ),
             SizedBox(
-              width: 400,
-              height: 50,
+              width: 350,
+              height: 60,
               child: ElevatedButton(
                 onPressed: () {
                   if (selectedAnswerIndex == -1) {
@@ -231,13 +266,15 @@ class _QuizAppState extends State {
                     });
                   }
                 },
-                style: ButtonStyle(
+                style: ElevatedButton.styleFrom(
                   backgroundColor: checkAnswer(3),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30)),
                 ),
                 child: Text(
                   "D.${allQuestions[questionIndex].options[3]}",
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 23,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -253,50 +290,70 @@ class _QuizAppState extends State {
             "Quiz App",
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.w700),
           ),
+          shape: const ContinuousRectangleBorder(
+            borderRadius: BorderRadius.vertical(
+              bottom: Radius.circular(30),
+            ),
+          ),
         ),
         body: Center(
-          child:
-              Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
-            const SizedBox(
-              height: 30,
-            ),
-            Image.network(
-              "https://static.vecteezy.com/system/resources/previews/018/923/361/original/gold-trophy-award-png.png",
-              height: 300,
-              width: 300,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const Text(
-              "Congratulations !",
-              style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            Text(
-              "Score : $score",
-              style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                setState(() {
-                  questionScreen = true;
-                  questionIndex = 0;
-                  selectedAnswerIndex = -1;
-                  score = 0;
-                });
-              },
-              child: const Text(
-                "Restart Quiz",
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
+          child: Column(
+              //crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const SizedBox(
+                  height: 30,
                 ),
-              ),
-            ),
-          ]),
+                Image.network(
+                  "https://static.vecteezy.com/system/resources/previews/018/923/361/original/gold-trophy-award-png.png",
+                  height: 300,
+                  width: 300,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const Text(
+                  "Congratulations !",
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  "You scored : $score / ${allQuestions.length}",
+                  style: const TextStyle(
+                      fontSize: 25, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                SizedBox(
+                  height: 60,
+                  width: 200,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        questionScreen = true;
+                        questionIndex = 0;
+                        selectedAnswerIndex = -1;
+                        score = 0;
+                      });
+                    },
+                    style: ElevatedButton.styleFrom(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                    ),
+                    child: const Text(
+                      "Restart Quiz",
+                      style: TextStyle(
+                        fontSize: 25,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ),
+                  ),
+                ),
+              ]),
         ),
       );
     }
