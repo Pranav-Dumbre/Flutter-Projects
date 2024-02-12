@@ -1,14 +1,21 @@
 import 'signup.dart';
 import 'package:flutter/material.dart';
+import "homepage.dart";
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
-  //final String _username="null";
-  //final String _password="null";
+
   void _signUp(BuildContext context) {
     Navigator.push(
       context,
       MaterialPageRoute(builder: (context) => SignUpPage()),
+    );
+  }
+
+  void _homePage(BuildContext context) {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomePage()),
     );
   }
 
@@ -91,7 +98,7 @@ class LoginPage extends StatelessWidget {
                         backgroundColor: Colors.black,
                       ),
                       onPressed: () {
-                        // Implement your login logic here
+                        _homePage(context);
                       },
                       child: const Text(
                         'Login',

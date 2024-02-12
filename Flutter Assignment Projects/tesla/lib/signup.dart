@@ -1,7 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:tesla/login.dart';
 
-class SignUpPage extends StatelessWidget {
+class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
+  @override
+  State<SignUpPage> createState() => _SignUpPageState();
+}
+
+class _SignUpPageState extends State<SignUpPage> {
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  String _firstname = '';
+  String _lastname = '';
+  String _email = '';
+  String _contact = '';
+  String _college = '';
+  String _yearOfStudy = '';
+  String _username = '';
+  String _password = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,43 +39,61 @@ class SignUpPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(15.0),
               child: ListView(
-                children: const [
-                  TextField(
-                    style: TextStyle(
+                children: [
+                  TextFormField(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
-                      labelText: "First Name",
+                    decoration: const InputDecoration(
+                      labelText: "First Name *",
                       labelStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'First name is required';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _firstname = value!;
+                    },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  TextField(
-                    style: TextStyle(
+                  TextFormField(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
-                      labelText: "Last Name",
+                    decoration: const InputDecoration(
+                      labelText: "Last Name *",
                       labelStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'lastname is required';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _lastname = value!;
+                    },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  TextField(
-                    style: TextStyle(
+                  TextFormField(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
-                      labelText: "Email Address",
+                    decoration: const InputDecoration(
+                      labelText: "Email Address *",
                       labelStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
@@ -69,32 +103,50 @@ class SignUpPage extends StatelessWidget {
                       //   color: Colors.red,
                       // ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Email is required';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _email = value!;
+                    },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  TextField(
-                    style: TextStyle(
+                  TextFormField(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
-                      labelText: "Contact Number",
+                    decoration: const InputDecoration(
+                      labelText: "Contact Number *",
                       labelStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Contact no is necessary';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _contact = value!;
+                    },
                     maxLength: 10,
                     keyboardType: TextInputType.phone,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  TextField(
-                    style: TextStyle(
+                  TextFormField(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "College Name",
                       labelStyle: TextStyle(
                         color: Colors.white,
@@ -102,14 +154,14 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  TextField(
-                    style: TextStyle(
+                  TextFormField(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Course Name",
                       labelStyle: TextStyle(
                         color: Colors.white,
@@ -117,14 +169,14 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  TextField(
-                    style: TextStyle(
+                  TextFormField(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
+                    decoration: const InputDecoration(
                       labelText: "Year of Study",
                       labelStyle: TextStyle(
                         color: Colors.white,
@@ -137,48 +189,83 @@ class SignUpPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  TextField(
-                    style: TextStyle(
+                  TextFormField(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
-                      labelText: "Username",
+                    decoration: const InputDecoration(
+                      labelText: "Username *",
                       labelStyle: TextStyle(
                         color: Colors.white,
                         fontSize: 20,
                       ),
                     ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Username is required';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _username = value!;
+                    },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  TextField(
+                  TextFormField(
                     //cursorColor: Colors.white,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.white,
                     ),
-                    decoration: InputDecoration(
-                        labelText: "Password",
-                        labelStyle: TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                          // backgroundColor: Colors.white,
-                          //  decorationColor: Colors.red,
-                        ),
-                        hintText:
-                            "min a number & a Special Character is required",
-                        hintStyle: TextStyle(
-                          color: Colors.white38,
-                        ),
-                        alignLabelWithHint: true),
+                    decoration: const InputDecoration(
+                      labelText: "Password *",
+                      labelStyle: TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                        // backgroundColor: Colors.white,
+                        //  decorationColor: Colors.red,
+                      ),
+                      hintText:
+                          "min a number & a Special Character is required",
+                      hintStyle: TextStyle(
+                        color: Colors.white38,
+                      ),
+                      alignLabelWithHint: true,
+                    ),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return 'Password is required';
+                      }
+                      return null;
+                    },
+                    onSaved: (value) {
+                      _password = value!;
+                    },
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 30,
                   ),
-                  FloatingActionButton(onPressed: )
+                  ElevatedButton(
+                    style: TextButton.styleFrom(
+                      backgroundColor: const Color.fromARGB(255, 50, 159, 249),
+                    ),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginPage()),
+                      );
+                    },
+                    child: const Text(
+                      "Submit",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                    ),
+                  )
                 ],
               ),
             ),
