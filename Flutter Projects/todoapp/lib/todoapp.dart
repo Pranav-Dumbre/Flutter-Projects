@@ -202,6 +202,7 @@ class _ToDoAppState extends State {
                               description: descriptionController.text,
                               date: dateController.text));
                         }
+//to check when to show errortext
 
                         if (titleController.text.isNotEmpty &&
                             descriptionController.text.isNotEmpty &&
@@ -210,9 +211,10 @@ class _ToDoAppState extends State {
                           titleController.clear();
                           descriptionController.clear();
                           dateController.clear();
-                          _submitButtonPressed = true;
                         }
-                        setState(() {});
+                        setState(() {
+                          _submitButtonPressed = true;
+                        });
                       },
                       child: Text(
                         "SUBMIT",
@@ -247,7 +249,7 @@ class _ToDoAppState extends State {
     // }
     // return cardColorList[colorIndex % 4];
 
-    if (colorIndex == cardColorList.length + 1) {
+    if (colorIndex == cardColorList.length - 1) {
       colorIndex = 0;
     } else {
       colorIndex++;
