@@ -53,8 +53,7 @@ class _ToDoAppState extends State {
                 Text(
                   "Create Task",
                   style: GoogleFonts.quicksand(
-                    color: const Color.fromRGBO(0, 21, 36, 1),
-                    fontSize: 25,
+                    fontSize: 22,
                     fontWeight: FontWeight.w700,
                   ),
                 ),
@@ -68,9 +67,9 @@ class _ToDoAppState extends State {
                     Text(
                       "Title",
                       style: GoogleFonts.quicksand(
-                        color: const Color.fromARGB(255, 54, 19, 7),
+                        color: const Color.fromRGBO(0, 139, 148, 1),
                         fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                     const SizedBox(
@@ -86,7 +85,7 @@ class _ToDoAppState extends State {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                            color: Color.fromRGBO(255, 125, 0, 1),
+                            color: Color.fromRGBO(0, 139, 148, 1),
                           ),
                         ),
                         border: OutlineInputBorder(
@@ -101,9 +100,9 @@ class _ToDoAppState extends State {
                     Text(
                       "Description",
                       style: GoogleFonts.quicksand(
-                        color: const Color.fromRGBO(120, 41, 15, 1),
+                        color: const Color.fromRGBO(0, 139, 148, 1),
                         fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                     const SizedBox(
@@ -119,7 +118,7 @@ class _ToDoAppState extends State {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                            color: Color.fromRGBO(255, 125, 0, 1),
+                            color: Color.fromRGBO(0, 139, 148, 1),
                           ),
                         ),
                         border: OutlineInputBorder(
@@ -134,9 +133,9 @@ class _ToDoAppState extends State {
                     Text(
                       "date",
                       style: GoogleFonts.quicksand(
-                        color: const Color.fromRGBO(120, 41, 15, 1),
+                        color: const Color.fromRGBO(0, 139, 148, 1),
                         fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                        fontWeight: FontWeight.normal,
                       ),
                     ),
                     const SizedBox(
@@ -154,7 +153,7 @@ class _ToDoAppState extends State {
                         focusedBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(12),
                           borderSide: const BorderSide(
-                            color: Color.fromRGBO(255, 125, 0, 1),
+                            color: Color.fromRGBO(0, 139, 148, 1),
                           ),
                         ),
                         border: OutlineInputBorder(
@@ -193,7 +192,7 @@ class _ToDoAppState extends State {
                             ),
                           ),
                           backgroundColor: MaterialStatePropertyAll(
-                              Color.fromRGBO(255, 107, 53, 1))),
+                              Color.fromRGBO(0, 139, 148, 1))),
                       onPressed: () {
                         if (titleController.text.isNotEmpty &&
                             descriptionController.text.isNotEmpty &&
@@ -264,18 +263,18 @@ class _ToDoAppState extends State {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          "OrganiseOwl",
+          "To-Do App",
           style: GoogleFonts.quicksand(
-              fontSize: 22, fontWeight: FontWeight.w700, color: Colors.white),
+              fontSize: 22, fontWeight: FontWeight.w600, color: Colors.white),
         ),
-        backgroundColor: const Color.fromRGBO(255, 107, 53, 1),
+        backgroundColor: const Color.fromRGBO(2, 167, 177, 1),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           displayBottomSheet();
           _submitButtonPressed = false;
         },
-        backgroundColor: const Color.fromRGBO(21, 97, 109, 1),
+        backgroundColor: const Color.fromRGBO(0, 139, 148, 1),
         child: const Icon(Icons.add),
       ),
       body: ListView.builder(
@@ -284,7 +283,7 @@ class _ToDoAppState extends State {
             return Padding(
               padding: const EdgeInsets.all(10),
               child: Container(
-                height: 180,
+                height: 220,
                 width: 330,
                 decoration: BoxDecoration(
                   color: boxColor(),
@@ -328,7 +327,6 @@ class _ToDoAppState extends State {
                             //date
                             todoList[index].date,
                             style: GoogleFonts.quicksand(
-                              color: const Color.fromRGBO(21, 97, 109, 1),
                               fontSize: 14,
                               fontWeight: FontWeight.w600,
                             ),
@@ -344,12 +342,12 @@ class _ToDoAppState extends State {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           SizedBox(
-                            height: 30,
+                            height: 40,
                             width: 250,
                             child: Text(
                               todoList[index].title,
                               style: GoogleFonts.quicksand(
-                                fontSize: 18,
+                                fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -358,19 +356,13 @@ class _ToDoAppState extends State {
                             height: 5,
                           ),
                           SizedBox(
-                            height: 97,
+                            height: 70,
                             width: 250,
-                            child: Scrollbar(
-                              thumbVisibility: true,
-                              child: SingleChildScrollView(
-                                //padding: const EdgeInsets.all(3),
-                                child: Text(
-                                  todoList[index].description,
-                                  style: GoogleFonts.quicksand(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
+                            child: Text(
+                              todoList[index].description,
+                              style: GoogleFonts.quicksand(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
                               ),
                             ),
                           ),
@@ -382,14 +374,9 @@ class _ToDoAppState extends State {
                                 width: 210,
                               ),
                               GestureDetector(
-                                onTap: () {
-                                  setState(() {
-                                    displayBottomSheet();
-                                  });
-                                },
                                 child: const Icon(
                                   Icons.edit_outlined,
-                                  color: Color.fromRGBO(21, 97, 109, 1),
+                                  color: Color.fromRGBO(0, 139, 148, 1),
                                   size: 22,
                                 ),
                               ),
@@ -399,7 +386,7 @@ class _ToDoAppState extends State {
                               GestureDetector(
                                 child: const Icon(
                                   Icons.delete_outline,
-                                  color: Color.fromRGBO(21, 97, 109, 1),
+                                  color: Color.fromRGBO(0, 139, 148, 1),
                                   size: 22,
                                 ),
                               ),
