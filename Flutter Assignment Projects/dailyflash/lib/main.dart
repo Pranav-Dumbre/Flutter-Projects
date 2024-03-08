@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '2.5df.dart';
+import '4.5df.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,7 +10,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
       home: DailyFlash(),
     );

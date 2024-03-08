@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
+//MODEL CLASS
 class ToDoModelClass {
-  final String title;
-  final String description;
-  final String date;
+  String title;
+  String description;
+  String date;
 
-  const ToDoModelClass(
+  ToDoModelClass(
       {required this.title, required this.description, required this.date});
 }
+//------------------------------------------------------------------------------
 
 class ToDoApp extends StatefulWidget {
   const ToDoApp({super.key});
@@ -17,17 +20,80 @@ class ToDoApp extends StatefulWidget {
   State createState() => _ToDoAppState();
 }
 
+//STATE CLASS
 class _ToDoAppState extends State {
   //Text Editing controllers
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
 
-  //submitButtonPressed
-  bool _submitButtonPressed = false;
+  bool docardedit = false;
+  //KEYS
+  final GlobalKey<FormState> _cardKey = GlobalKey<FormState>();
+  //SUBMIT----------------------------------------------------------------------
+  void submit(bool docardedit, [ToDoModelClass? toDoModelobj]) {
+    // Add Logic
+    if (titleController.text.isNotEmpty &&
+        descriptionController.text.isNotEmpty &&
+        dateController.text.isNotEmpty) {
+      if (!docardedit) {
+        setState(() {
+          todoList.add(
+            ToDoModelClass(
+              title: titleController.text.trim(),
+              description: descriptionController.text.trim(),
+              date: dateController.text.trim(),
+            ),
+          );
+          clearController();
+        });
+      }
+      //  Edit Logic
+      else {
+        setState(
+          () {
+            toDoModelobj!.date = dateController.text.trim();
+            toDoModelobj.description = descriptionController.text.trim();
+            toDoModelobj.title = titleController.text.trim();
+          },
+        );
+      }
+      clearController();
+      Navigator.of(context).pop();
+    } else {}
+  }
+
+  //----------------------------------------------------------------------------
+  //TO EDIT A SPECIFIC CARD
+  void editCard(ToDoModelClass toDoModelobj) {
+    titleController.text = toDoModelobj.title;
+    dateController.text = toDoModelobj.date;
+    descriptionController.text = toDoModelobj.description;
+
+    displayBottomSheet(true, toDoModelobj);
+  }
+
+  //----------------------------------------------------------------------------
+  //TO DELETE A SPECIFIC CARD
+  void deleteCard(ToDoModelClass toDoModelobj) {
+    setState(() {
+      todoList.remove(toDoModelobj);
+    });
+  }
+
+  //----------------------------------------------------------------------------
+  //CLEARS CONTROLLERS
+  void clearController() {
+    titleController.clear();
+    descriptionController.clear();
+    dateController.clear();
+  }
+
+  //----------------------------------------------------------------------------
   //BottomSheet
-  void displayBottomSheet() {
+  void displayBottomSheet(bool docardedit, [ToDoModelClass? toDoModalObj]) {
     showModalBottomSheet(
+        //isScrollControlled scroll screen up when keyboard is in use
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.only(
@@ -61,167 +127,168 @@ class _ToDoAppState extends State {
                 const SizedBox(
                   height: 14,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text(
-                      "Title",
-                      style: GoogleFonts.quicksand(
-                        color: const Color.fromARGB(255, 54, 19, 7),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    TextField(
-                      controller: titleController,
-                      decoration: InputDecoration(
-                        errorText:
-                            _submitButtonPressed && titleController.text.isEmpty
-                                ? "Title required"
-                                : null,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color.fromRGBO(255, 125, 0, 1),
+                Form(
+                  key: _cardKey,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextFormField(
+                        controller: titleController,
+                        //key: usernameKey,
+                        decoration: const InputDecoration(
+                          hintText: " Title",
+                          label: Text(
+                            "Title",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(255, 125, 0, 1),
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter Title";
+                          } else {
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.emailAddress,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "Description",
-                      style: GoogleFonts.quicksand(
-                        color: const Color.fromRGBO(120, 41, 15, 1),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    TextField(
-                      controller: descriptionController,
-                      decoration: InputDecoration(
-                        errorText: _submitButtonPressed &&
-                                descriptionController.text.isEmpty
-                            ? "Description cant be empty"
-                            : null,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color.fromRGBO(255, 125, 0, 1),
+                      TextFormField(
+                        controller: descriptionController,
+                        //key: usernameKey,
+                        decoration: const InputDecoration(
+                          hintText: " Description",
+                          label: Text(
+                            "Description",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color.fromRGBO(255, 125, 0, 1),
+                            ),
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.all(Radius.circular(20)),
                           ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Description is Mandatory";
+                          } else {
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.emailAddress,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 12,
-                    ),
-                    Text(
-                      "date",
-                      style: GoogleFonts.quicksand(
-                        color: const Color.fromRGBO(120, 41, 15, 1),
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
+                      const SizedBox(
+                        height: 20,
                       ),
-                    ),
-                    const SizedBox(
-                      height: 3,
-                    ),
-                    TextField(
-                      controller: dateController,
-                      readOnly: true,
-                      decoration: InputDecoration(
-                        errorText:
-                            _submitButtonPressed && dateController.text.isEmpty
-                                ? "Please select date"
-                                : null,
-                        suffixIcon: const Icon(Icons.date_range_rounded),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(
-                            color: Color.fromRGBO(255, 125, 0, 1),
+                      TextFormField(
+                        controller: dateController,
+                        readOnly: true,
+                        decoration: InputDecoration(
+                          hintText: "Date",
+                          label: const Text(
+                            "Date",
+                            style: TextStyle(color: Colors.black),
+                          ),
+                          suffixIcon: const Icon(Icons.date_range_rounded),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(
+                              color: Color.fromRGBO(255, 125, 0, 1),
+                            ),
+                          ),
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20),
+                            borderSide: const BorderSide(color: Colors.black),
                           ),
                         ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(12),
-                          borderSide: const BorderSide(color: Colors.black),
-                        ),
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please select date";
+                          } else {
+                            return null;
+                          }
+                        },
+                        keyboardType: TextInputType.emailAddress,
+                        onTap: () async {
+                          DateTime? pickedDate = await showDatePicker(
+                            barrierColor:
+                                const Color.fromRGBO(255, 125, 0, 0.3),
+                            context: context,
+                            initialDate: DateTime.now(),
+                            firstDate: DateTime(2024),
+                            lastDate: DateTime(2026),
+                            builder: (BuildContext context, Widget? child) {
+                              return Theme(
+                                data: ThemeData.light().copyWith(
+                                  colorScheme:
+                                      const ColorScheme.light().copyWith(
+                                    primary: Colors.orange[800],
+                                    background: Colors.red,
+                                  ),
+                                ),
+                                child: child!,
+                              );
+                            },
+                          );
+                          String formatedDate =
+                              DateFormat.yMMMd().format(pickedDate!);
+                          setState(() {
+                            dateController.text = formatedDate;
+                          });
+                        },
                       ),
-                      onTap: () async {
-                        DateTime? pickedDate = await showDatePicker(
-                          context: context,
-                          initialDate: DateTime.now(),
-                          firstDate: DateTime(2024),
-                          lastDate: DateTime(2026),
-                        );
-                        String formatedDate =
-                            DateFormat.yMMMd().format(pickedDate!);
-                        setState(() {
-                          dateController.text = formatedDate;
-                        });
-                      },
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ],
+                  ),
                 ),
                 SizedBox(
                   width: double.maxFinite,
                   child: ElevatedButton(
                       style: const ButtonStyle(
-                          shape: MaterialStatePropertyAll(
-                            RoundedRectangleBorder(
-                              borderRadius: BorderRadius.all(
-                                Radius.circular(20),
-                              ),
+                        shape: MaterialStatePropertyAll(
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.all(
+                              Radius.circular(20),
                             ),
                           ),
-                          backgroundColor: MaterialStatePropertyAll(
-                              Color.fromRGBO(255, 107, 53, 1))),
+                        ),
+                        backgroundColor: MaterialStatePropertyAll(
+                          Color.fromRGBO(255, 107, 53, 1),
+                        ),
+                      ),
                       onPressed: () {
-                        if (titleController.text.isNotEmpty &&
-                            descriptionController.text.isNotEmpty &&
-                            dateController.text.isNotEmpty) {
-                          todoList.add(ToDoModelClass(
-                              title: titleController.text,
-                              description: descriptionController.text,
-                              date: dateController.text));
+                        if (docardedit) {
+                          submit(docardedit, toDoModalObj);
+                        } else {
+                          submit(docardedit);
                         }
-//to check when to show errortext
 
-                        if (titleController.text.isNotEmpty &&
-                            descriptionController.text.isNotEmpty &&
-                            dateController.text.isNotEmpty) {
-                          Navigator.of(context).pop();
-                          titleController.clear();
-                          descriptionController.clear();
-                          dateController.clear();
-                        }
                         setState(() {
-                          _submitButtonPressed = true;
+                          _cardKey.currentState!.validate();
                         });
                       },
                       child: Text(
                         "SUBMIT",
                         style: GoogleFonts.inter(
                             color: Colors.white,
-                            fontSize: 25,
+                            fontSize: 22,
                             fontWeight: FontWeight.w700),
                       )),
                 )
@@ -231,25 +298,21 @@ class _ToDoAppState extends State {
         });
   }
 
+//------------------------------------------------------------------------------
+//LIST OF CARDS
   List<ToDoModelClass> todoList = [];
-
+//COLORS OF CARD
   List<Color> cardColorList = const [
-    Color.fromRGBO(250, 232, 232, 1),
-    Color.fromRGBO(232, 237, 250, 1),
-    Color.fromRGBO(250, 249, 232, 1),
-    Color.fromRGBO(250, 232, 250, 1),
-    Color.fromRGBO(250, 232, 232, 1),
+    Color.fromRGBO(253, 242, 187, 1),
+    Color.fromRGBO(252, 219, 190, 1),
+    Color.fromRGBO(250, 253, 207, 1),
+    Color.fromRGBO(254, 198, 187, 1),
+    Color.fromRGBO(255, 203, 215, 1),
+    Color.fromRGBO(255, 205, 216, 1),
   ];
 
   int colorIndex = 0;
   Color boxColor() {
-    // if (colorIndex % 2 == 1) {
-    //   colorIndex++;
-    // } else {
-    //   colorIndex += 2;
-    // }
-    // return cardColorList[colorIndex % 4];
-
     if (colorIndex == cardColorList.length - 1) {
       colorIndex = 0;
     } else {
@@ -263,6 +326,12 @@ class _ToDoAppState extends State {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            bottomLeft: Radius.elliptical(20, 20),
+            bottomRight: Radius.elliptical(20, 20),
+          ),
+        ),
         title: Text(
           "OrganiseOwl",
           style: GoogleFonts.quicksand(
@@ -272,11 +341,14 @@ class _ToDoAppState extends State {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          displayBottomSheet();
-          _submitButtonPressed = false;
+          docardedit = false;
+          displayBottomSheet(docardedit);
         },
         backgroundColor: const Color.fromRGBO(21, 97, 109, 1),
-        child: const Icon(Icons.add),
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
       body: ListView.builder(
           itemCount: todoList.length,
@@ -319,9 +391,10 @@ class _ToDoAppState extends State {
                                 )
                               ],
                             ),
-                            padding: const EdgeInsets.all(10),
-                            child: Image.network(
-                                "https://cdn-icons-png.freepik.com/256/11207/11207604.png"),
+                            padding: const EdgeInsets.all(2),
+                            child: Image.asset(
+                              "assets/owlC.png",
+                            ),
                           ),
                           const Spacer(),
                           Text(
@@ -384,7 +457,7 @@ class _ToDoAppState extends State {
                               GestureDetector(
                                 onTap: () {
                                   setState(() {
-                                    displayBottomSheet();
+                                    editCard(todoList[index]);
                                   });
                                 },
                                 child: const Icon(
@@ -397,6 +470,11 @@ class _ToDoAppState extends State {
                                 width: 5,
                               ),
                               GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    deleteCard(todoList[index]);
+                                  });
+                                },
                                 child: const Icon(
                                   Icons.delete_outline,
                                   color: Color.fromRGBO(21, 97, 109, 1),

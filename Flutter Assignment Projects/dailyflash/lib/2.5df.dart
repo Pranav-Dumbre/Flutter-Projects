@@ -11,6 +11,7 @@ class DailyFlash extends StatefulWidget {
   State createState() => _DailyFlashState();
 }
 
+
 class _DailyFlashState extends State {
   bool _isTapped = false;
 
