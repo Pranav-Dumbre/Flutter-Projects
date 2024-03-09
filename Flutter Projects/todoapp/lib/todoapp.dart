@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 
@@ -22,13 +21,13 @@ class ToDoApp extends StatefulWidget {
 
 //STATE CLASS
 class _ToDoAppState extends State {
-  //Text Editing controllers
+  //Text Editing controllers - to fetch data from textfield/textformfield
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   TextEditingController dateController = TextEditingController();
 
   bool docardedit = false;
-  //KEYS
+  //KEYS 
   final GlobalKey<FormState> _cardKey = GlobalKey<FormState>();
   //SUBMIT----------------------------------------------------------------------
   void submit(bool docardedit, [ToDoModelClass? toDoModelobj]) {
