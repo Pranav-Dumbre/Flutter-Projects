@@ -1,3 +1,5 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'todoapp.dart';
 
@@ -57,7 +59,7 @@ class _LoginState extends State<Login> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => ToDoApp(),
+          builder: (context) => const ToDoApp(),
         ),
       );
     }

@@ -27,7 +27,7 @@ class _ToDoAppState extends State {
   TextEditingController dateController = TextEditingController();
 
   bool docardedit = false;
-  //KEYS 
+  //KEYS
   final GlobalKey<FormState> _cardKey = GlobalKey<FormState>();
   //SUBMIT----------------------------------------------------------------------
   void submit(bool docardedit, [ToDoModelClass? toDoModelobj]) {
@@ -237,7 +237,6 @@ class _ToDoAppState extends State {
                                   colorScheme:
                                       const ColorScheme.light().copyWith(
                                     primary: Colors.orange[800],
-                                    background: Colors.red,
                                   ),
                                 ),
                                 child: child!,
@@ -302,12 +301,10 @@ class _ToDoAppState extends State {
   List<ToDoModelClass> todoList = [];
 //COLORS OF CARD
   List<Color> cardColorList = const [
-    Color.fromRGBO(253, 242, 187, 1),
+    Color.fromRGBO(249, 236, 167, 1),
     Color.fromRGBO(252, 219, 190, 1),
-    Color.fromRGBO(250, 253, 207, 1),
-    Color.fromRGBO(254, 198, 187, 1),
-    Color.fromRGBO(255, 203, 215, 1),
-    Color.fromRGBO(255, 205, 216, 1),
+    Color.fromRGBO(255, 223, 154, 1),
+    Color.fromRGBO(255, 196, 154, 1),
   ];
 
   int colorIndex = 0;
@@ -434,8 +431,7 @@ class _ToDoAppState extends State {
                             width: 250,
                             child: Scrollbar(
                               thumbVisibility: true,
-                              child: SingleChildScrollView(
-                                //padding: const EdgeInsets.all(3),
+                              child: Expanded(
                                 child: Text(
                                   todoList[index].description,
                                   style: GoogleFonts.quicksand(
