@@ -423,7 +423,7 @@ class _AdvtodoState extends State<Advtodo> {
                 left: 29,
               ),
               child: Text(
-                "Pathum",
+                "Pranav",
                 style: GoogleFonts.quicksand(
                   color: const Color.fromRGBO(255, 255, 255, 1),
                   fontWeight: FontWeight.w600,
@@ -517,7 +517,7 @@ class _AdvtodoState extends State<Advtodo> {
                                             await deleteCard(todoList[index]);
                                             await fillCard();
 
-                                           // print(todoList[index].title);
+                                            // print(todoList[index].title);
                                             setState(() {});
                                             //removeTasks(todoList[index]);
                                           },
