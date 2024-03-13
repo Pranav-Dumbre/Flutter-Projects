@@ -328,7 +328,7 @@ class _ToDoAppState extends State {
             bottomRight: Radius.elliptical(20, 20),
           ),
         ),
-        title: Text(
+        title: Text(=
           "OrganiseOwl",
           style: GoogleFonts.quicksand(
               fontSize: 22, fontWeight: FontWeight.w700, color: Colors.white),
