@@ -35,7 +35,7 @@ Future<List<ToDoModel>> retriveCard() async {
 
 //DELETE
 Future<void> deleteCard(ToDoModel obj) async {
- // print("DeleteCard -c_id ${obj.c_id}");
+  // print("DeleteCard -c_id ${obj.c_id}");
 
   final localDB = await database;
   await localDB.delete(
@@ -65,7 +65,7 @@ class ToDoModel {
   String title;
   String description;
   String date;
-  bool isChecked;
+  bool isChecked = false;
   //constructor
   ToDoModel({
     // ignore: non_constant_identifier_names
@@ -73,7 +73,6 @@ class ToDoModel {
     required this.title,
     required this.description,
     required this.date,
-    this.isChecked = false,
   });
   //Map for SQFlite - stores data in key:val pair
   Map<String, dynamic> cardMap() {
@@ -81,7 +80,6 @@ class ToDoModel {
       'title': title,
       'description': description,
       'date': date,
-      'isChecked': isChecked,
     };
   }
 }
@@ -104,8 +102,8 @@ class _AdvtodoState extends State<Advtodo> {
         c_id INTEGER PRIMARY KEY,   
         title TEXT ,
         description TEXT , 
-        date TEXT,
-        isChecked INTEGER
+        date TEXT
+       
       );
 ''');
       },
