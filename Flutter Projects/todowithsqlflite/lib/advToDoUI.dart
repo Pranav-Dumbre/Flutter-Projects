@@ -31,9 +31,6 @@ Future<List<ToDoModel>> retriveCard() async {
         description: todomaplist[i]['description'],
         date: todomaplist[i]['date']);
   });
-  // for (int i = 0; i < todomaplist.length; i++) {
-  //   Map<String, dynamic> myMap = todomaplist[i];
-  //   print(myMap['c_id']);
 }
 
 //DELETE
@@ -53,11 +50,12 @@ Future<void> deleteCard(ToDoModel obj) async {
 //update
 Future<void> updateCard(ToDoModel obj) async {
   final localDB = await database;
-  // obj.c_id = obj.c_id - 1;
-  await localDB.update("Card", obj.cardMap(),
-      where: "c_id=?",
-      whereArgs: [(obj.c_id)],
-      conflictAlgorithm: ConflictAlgorithm.replace);
+  await localDB.update(
+    "Card",
+    obj.cardMap(),
+    where: "c_id=?",
+    whereArgs: [(obj.c_id)],
+  );
 }
 
 //------------------------------------------------------------------------------
@@ -67,7 +65,7 @@ class ToDoModel {
   String title;
   String description;
   String date;
-  // bool isChecked;
+  bool isChecked;
   //constructor
   ToDoModel({
     // ignore: non_constant_identifier_names
@@ -75,7 +73,7 @@ class ToDoModel {
     required this.title,
     required this.description,
     required this.date,
-    // this.isChecked = false,
+    this.isChecked = false,
   });
   //Map for SQFlite - stores data in key:val pair
   Map<String, dynamic> cardMap() {
@@ -83,7 +81,7 @@ class ToDoModel {
       'title': title,
       'description': description,
       'date': date,
-      //'isChecked': isChecked,
+      'isChecked': isChecked,
     };
   }
 }
@@ -106,7 +104,8 @@ class _AdvtodoState extends State<Advtodo> {
         c_id INTEGER PRIMARY KEY,   
         title TEXT ,
         description TEXT , 
-        date TEXT
+        date TEXT,
+        isChecked INTEGER
       );
 ''');
       },
@@ -119,7 +118,6 @@ class _AdvtodoState extends State<Advtodo> {
   void initState() {
     super.initState();
     dbInit();
-    // fillCard();
   }
 
   //Controllers
@@ -142,7 +140,7 @@ class _AdvtodoState extends State<Advtodo> {
         dateController.text.trim().isNotEmpty) {
       if (!doedit) {
         setState(() {
-          print("In Submitt");
+          //   print("In Submitt");
           insertCard(
             ToDoModel(
               title: titleController.text,
@@ -186,30 +184,16 @@ class _AdvtodoState extends State<Advtodo> {
     dateController.clear();
   }
 
-  ///REMOVE NOTES
-  // void removeTasks(ToDoModel toDoModelObj) {
-  //   setState(() {
-  //     todoList.remove(toDoModelObj);
-  //   });
-  // }
+  // ignore: non_constant_identifier_names
   int? tochangec_id = -1;
-  retc_id(ToDoModel obj) {
-    tochangec_id = obj.c_id;
-  }
 
   void editTask(ToDoModel toDoModelObj) async {
+    tochangec_id = toDoModelObj.c_id;
     titleController.text = toDoModelObj.title;
     descriptionController.text = toDoModelObj.description;
     dateController.text = toDoModelObj.date;
-    showBottomSheet(true, toDoModelObj);
-  }
 
-  @override
-  void dispose() {
-    super.dispose();
-    titleController.dispose();
-    dateController.dispose();
-    descriptionController.dispose();
+    showBottomSheet(true, toDoModelObj);
   }
 
   bool doedit = false;
@@ -487,7 +471,7 @@ class _AdvtodoState extends State<Advtodo> {
                           scrollDirection: Axis.vertical,
                           itemCount: todoList.length,
                           itemBuilder: (context, index) {
-                            print("Builder = ${todoList.length}");
+                            //print("Builder = ${todoList.length}");
                             return Slidable(
                               closeOnScroll: true,
                               endActionPane: ActionPane(
@@ -506,7 +490,7 @@ class _AdvtodoState extends State<Advtodo> {
                                           onTap: () {
                                             //updateCard(todoList[index]);
                                             editTask(todoList[index]);
-                                            retc_id(todoList[index]);
+                                            // retc_id(todoList[index]);
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.all(10),
@@ -533,7 +517,7 @@ class _AdvtodoState extends State<Advtodo> {
                                             await deleteCard(todoList[index]);
                                             await fillCard();
 
-                                            print(todoList[index].title);
+                                           // print(todoList[index].title);
                                             setState(() {});
                                             //removeTasks(todoList[index]);
                                           },
@@ -651,11 +635,10 @@ class _AdvtodoState extends State<Advtodo> {
                                                 BorderRadius.circular(10),
                                           ),
                                           activeColor: Colors.green,
-                                          value:
-                                              true, //todoList[index].isChecked,
+                                          value: todoList[index].isChecked,
                                           onChanged: (val) {
                                             setState(() {
-                                              true; //todoList[index].isChecked = val!;
+                                              todoList[index].isChecked = val!;
                                             });
                                           },
                                         ),
