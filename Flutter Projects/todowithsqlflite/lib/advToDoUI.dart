@@ -160,7 +160,13 @@ class _AdvtodoState extends State<Advtodo> {
           // );
         });
       } else {
-        setState(() async {
+        await updateCard(ToDoModel(
+          c_id: tochangec_id,
+          title: titleController.text, //titleController.text,
+          description: descriptionController.text,
+          date: dateController.text,
+        ));
+        setState(() {
           // toDoModelObj!.date = dateController.text.trim();
           // toDoModelObj.title = titleController.text.trim();
           // toDoModelObj.description = descriptionController.text.trim();
@@ -186,18 +192,16 @@ class _AdvtodoState extends State<Advtodo> {
   //     todoList.remove(toDoModelObj);
   //   });
   // }
+  int? tochangec_id = -1;
+  retc_id(ToDoModel obj) {
+    tochangec_id = obj.c_id;
+  }
 
   void editTask(ToDoModel toDoModelObj) async {
     titleController.text = toDoModelObj.title;
     descriptionController.text = toDoModelObj.description;
     dateController.text = toDoModelObj.date;
     showBottomSheet(true, toDoModelObj);
-    updateCard(ToDoModel(
-      c_id: toDoModelObj.c_id,
-      title: titleController.text,
-      description: descriptionController.text,
-      date: dateController.text,
-    ));
   }
 
   @override
@@ -210,7 +214,7 @@ class _AdvtodoState extends State<Advtodo> {
 
   bool doedit = false;
 
-  void showBottomSheet(doedit, [ToDoModel? toDoModelObj]) {
+  void showBottomSheet(doedit, [ToDoModel? toDoModelObj]) async {
     showModalBottomSheet(
         backgroundColor: const Color.fromRGBO(248, 248, 248, 1),
         isScrollControlled: true,
@@ -502,6 +506,7 @@ class _AdvtodoState extends State<Advtodo> {
                                           onTap: () {
                                             //updateCard(todoList[index]);
                                             editTask(todoList[index]);
+                                            retc_id(todoList[index]);
                                           },
                                           child: Container(
                                             padding: const EdgeInsets.all(10),
