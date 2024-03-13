@@ -35,7 +35,7 @@ Future<List<ToDoModel>> retriveCard() async {
 
 //DELETE
 Future<void> deleteCard(ToDoModel obj) async {
-  print("DeleteCard -c_id ${obj.c_id}");
+ // print("DeleteCard -c_id ${obj.c_id}");
 
   final localDB = await database;
   await localDB.delete(
