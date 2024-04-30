@@ -1,4 +1,5 @@
 // ignore: file_names
+import 'login.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
@@ -421,7 +422,7 @@ class _AdvtodoState extends State<Advtodo> {
                 left: 29,
               ),
               child: Text(
-                "Pranav",
+                "$name",
                 style: GoogleFonts.quicksand(
                   color: const Color.fromRGBO(255, 255, 255, 1),
                   fontWeight: FontWeight.w600,
@@ -470,179 +471,190 @@ class _AdvtodoState extends State<Advtodo> {
                           itemCount: todoList.length,
                           itemBuilder: (context, index) {
                             //print("Builder = ${todoList.length}");
-                            return Slidable(
-                              closeOnScroll: true,
-                              endActionPane: ActionPane(
-                                extentRatio: 0.2,
-                                motion: const DrawerMotion(),
-                                children: [
-                                  Expanded(
-                                    child: Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () {
-                                            //updateCard(todoList[index]);
-                                            editTask(todoList[index]);
-                                            // retc_id(todoList[index]);
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.all(10),
-                                            height: 40,
-                                            width: 40,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromRGBO(
-                                                  89, 57, 241, 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: const Icon(
-                                              Icons.edit,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 20,
-                                        ),
-                                        GestureDetector(
-                                          onTap: () async {
-                                            await deleteCard(todoList[index]);
-                                            await fillCard();
-
-                                            // print(todoList[index].title);
-                                            setState(() {});
-                                            //removeTasks(todoList[index]);
-                                          },
-                                          child: Container(
-                                            padding: const EdgeInsets.all(5),
-                                            height: 40,
-                                            width: 40,
-                                            decoration: BoxDecoration(
-                                              color: const Color.fromRGBO(
-                                                  89, 57, 241, 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                            ),
-                                            child: const Icon(
-                                              Icons.delete,
-                                              color: Colors.white,
-                                              size: 20,
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          height: 5,
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              key: ValueKey(index),
-                              child: Container(
-                                margin: const EdgeInsets.only(top: 10),
-                                padding: const EdgeInsets.only(
-                                  left: 20,
-                                  bottom: 20,
-                                  top: 20,
-                                ),
-                                decoration: BoxDecoration(
-                                  color: const Color.fromRGBO(255, 255, 255, 1),
-                                  border: Border.all(
-                                      color:
-                                          const Color.fromRGBO(0, 0, 0, 0.05),
-                                      width: 0.5),
-                                  boxShadow: const [
-                                    BoxShadow(
-                                      offset: Offset(0, 4),
-                                      blurRadius: 20,
-                                      color: Color.fromRGBO(0, 0, 0, 0.13),
-                                    )
-                                  ],
-                                  borderRadius:
-                                      const BorderRadius.all(Radius.zero),
-                                ),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                            return Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Slidable(
+                                closeOnScroll: true,
+                                endActionPane: ActionPane(
+                                  extentRatio: 0.2,
+                                  motion: const DrawerMotion(),
                                   children: [
-                                    Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          height: 60,
-                                          width: 60,
-                                          decoration: const BoxDecoration(
-                                            shape: BoxShape.circle,
-                                            color: Color.fromRGBO(
-                                                217, 217, 217, 1),
+                                    Expanded(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          const SizedBox(
+                                            height: 5,
                                           ),
-                                          child: Image.asset("assets/tick.png"),
-                                        ),
-                                        const SizedBox(
-                                          width: 20,
-                                        ),
-                                        SizedBox(
-                                          width: 260,
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                todoList[index].title,
-                                                style: GoogleFonts.inter(
-                                                  fontWeight: FontWeight.w500,
-                                                  fontSize: 15,
-                                                  color: Colors.black,
-                                                ),
+                                          GestureDetector(
+                                            onTap: () {
+                                              //updateCard(todoList[index]);
+                                              editTask(todoList[index]);
+                                              // retc_id(todoList[index]);
+                                            },
+                                            child: Container(
+                                              padding: const EdgeInsets.all(10),
+                                              height: 40,
+                                              width: 40,
+                                              decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(
+                                                    89, 57, 241, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
                                               ),
-                                              const SizedBox(
-                                                height: 5,
+                                              child: const Icon(
+                                                Icons.edit,
+                                                color: Colors.white,
+                                                size: 20,
                                               ),
-                                              Text(
-                                                todoList[index].description,
-                                                style: GoogleFonts.inter(
-                                                    color: const Color.fromRGBO(
-                                                        0, 0, 0, 0.7),
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 12),
-                                              ),
-                                              const SizedBox(
-                                                height: 5,
-                                              ),
-                                              Text(
-                                                todoList[index].date,
-                                                style: GoogleFonts.inter(
-                                                    color: const Color.fromRGBO(
-                                                        0, 0, 0, 0.7),
-                                                    fontWeight: FontWeight.w400,
-                                                    fontSize: 12),
-                                              ),
-                                            ],
+                                            ),
                                           ),
-                                        ),
-                                        Checkbox(
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
+                                          const SizedBox(
+                                            height: 20,
                                           ),
-                                          activeColor: Colors.green,
-                                          value: todoList[index].isChecked,
-                                          onChanged: (val) {
-                                            setState(() {
-                                              todoList[index].isChecked = val!;
-                                            });
-                                          },
-                                        ),
-                                      ],
+                                          GestureDetector(
+                                            onTap: () async {
+                                              await deleteCard(todoList[index]);
+                                              await fillCard();
+
+                                              // print(todoList[index].title);
+                                              setState(() {});
+                                              //removeTasks(todoList[index]);
+                                            },
+                                            child: Container(
+                                              padding: const EdgeInsets.all(5),
+                                              height: 40,
+                                              width: 40,
+                                              decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(
+                                                    89, 57, 241, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                              ),
+                                              child: const Icon(
+                                                Icons.delete,
+                                                color: Colors.white,
+                                                size: 20,
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 5,
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                   ],
+                                ),
+                                key: ValueKey(index),
+                                child: Container(
+                                  margin: const EdgeInsets.only(top: 10),
+                                  padding: const EdgeInsets.only(
+                                    left: 20,
+                                    bottom: 20,
+                                    top: 20,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    color:
+                                        const Color.fromRGBO(255, 255, 255, 1),
+                                    border: Border.all(
+                                        color:
+                                            const Color.fromRGBO(0, 0, 0, 0.05),
+                                        width: 0.5),
+                                    boxShadow: const [
+                                      BoxShadow(
+                                        offset: Offset(0, 4),
+                                        blurRadius: 20,
+                                        color: Color.fromRGBO(0, 0, 0, 0.13),
+                                      )
+                                    ],
+                                    borderRadius:
+                                        const BorderRadius.all(Radius.zero),
+                                  ),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Container(
+                                            height: 60,
+                                            width: 60,
+                                            decoration: const BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Color.fromRGBO(
+                                                  217, 217, 217, 1),
+                                            ),
+                                            child:
+                                                Image.asset("assets/tick.png"),
+                                          ),
+                                          const SizedBox(
+                                            width: 20,
+                                          ),
+                                          SizedBox(
+                                            width: 225,
+                                            child: Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  todoList[index].title,
+                                                  style: GoogleFonts.inter(
+                                                    fontWeight: FontWeight.w500,
+                                                    fontSize: 15,
+                                                    color: Colors.black,
+                                                  ),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  todoList[index].description,
+                                                  style: GoogleFonts.inter(
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              0, 0, 0, 0.7),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12),
+                                                ),
+                                                const SizedBox(
+                                                  height: 5,
+                                                ),
+                                                Text(
+                                                  todoList[index].date,
+                                                  style: GoogleFonts.inter(
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              0, 0, 0, 0.7),
+                                                      fontWeight:
+                                                          FontWeight.w400,
+                                                      fontSize: 12),
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          Checkbox(
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                            ),
+                                            activeColor: Colors.green,
+                                            value: todoList[index].isChecked,
+                                            onChanged: (val) {
+                                              setState(() {
+                                                todoList[index].isChecked =
+                                                    val!;
+                                              });
+                                            },
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

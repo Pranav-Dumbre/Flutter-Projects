@@ -3,6 +3,8 @@
 import 'package:flutter/material.dart';
 import 'advToDoUI.dart';
 
+String? name;
+
 class Login extends StatefulWidget {
   const Login({super.key});
   @override
@@ -20,8 +22,7 @@ class User {
 class _LoginState extends State<Login> {
   List<User> userList = [
     const User(user: "Pranav", pass: "Pranav123"),
-    const User(user: "Mahesh", pass: "Mahesh123"),
-    const User(user: "Aditya", pass: "Aditya123"),
+    const User(user: "Swapnil", pass: "Swapnil123"),
   ];
   //CONTROLLERS - to fetch / access data in TextFields/TextFormFields
   TextEditingController usenameController = TextEditingController();
@@ -207,6 +208,7 @@ class _LoginState extends State<Login> {
                                 element.pass == passwordController.text,
                           )) {
                         _loggedin = true;
+                        name = usenameController.text;
                         ScaffoldMessenger.of(context)
                             .showSnackBar(const SnackBar(
                           content: Text("Login SuccessFul"),
